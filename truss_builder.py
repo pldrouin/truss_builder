@@ -62,34 +62,22 @@ class Member:
         pdiff = p2 - p1
         #print("pdiff ",pdiff)
         u_u = pdiff / np.linalg.norm(pdiff)
-        px = p1 + (np.dot(p1,p1)-np.dot(p1,p2))/np.dot(pdiff,pdiff)*pdiff
+        px = p1 + (np.dot(p1,p1) - np.dot(p1,p2)) / np.dot(pdiff,pdiff) * pdiff
         #print("px ",px)
         rv = np.linalg.norm(px)
         
         if((px == rv*u_u).all()):
             #print("Identical")
             px = np.array([0,0,0])
-            v_u = np.array([0,0,0])
             
-            if(u_u[0] == 0):
-                v_u[0] = 1
-                v_u[1] = 0
-                v_u[2] = 0
+            if(u_u[0] == 0):   v_u = np.array([1,0,0])
                 
-            elif(u_u[1] == 0):
-                v_u[0] = 0
-                v_u[1] = 1
-                v_u[2] = 0
+            elif(u_u[1] == 0): v_u = np.array([0,1,0])
             
-            elif(u_u[2] == 0):
-                v_u[0] = 0
-                v_u[1] = 0
-                v_u[2] = 1
+            elif(u_u[2] == 0): v_u = np.array([0,0,1])
                 
             else:    
-                v_u[0] = 1
-                v_u[1] = 1
-                v_u[2] = -(u_u[0] + u_u[1])/u_u[2]
+                v_u = np.array([1,1, -(u_u[0] + u_u[1]) / u_u[2]])
                 v_u /= np.linalg.norm(v_u)
         else:
             v_u = px / rv
@@ -103,14 +91,14 @@ class Member:
         L1_u = totalLoad / L1norm
         L1_u_w = np.dot(L1_u,w_u)
         
-        self.momentSum += L1norm/np.linalg.norm(pdiff)*((L1_u_w*rv*u_u-np.dot(L1_u,u_u)*rv*w_u)*(u2-u1)+(-L1_u_w*v_u+np.dot(L1_u,v_u)*w_u)*(u2*u2-u1*u1)/2)
+        self.momentSum += L1norm / np.linalg.norm(pdiff) * ((L1_u_w * rv * u_u - np.dot(L1_u,u_u) * rv * w_u) * (u2 - u1) + (-L1_u_w * v_u + np.dot(L1_u,v_u) * w_u) * (u2 * u2 - u1 * u1) / 2)
         
 def GenTable():
     index = 0
     nms = len(Member.all)
     nns = len(Node.all)
-    a = np.zeros((nms*6+nns*3,0))
-    b = np.zeros(nms*6+nns*3)
+    a = np.zeros((nms * 6 + nns * 3,0))
+    b = np.zeros(nms * 6 + nns * 3)
             
     for i,m in enumerate(Member.all):
         print('Member ',m.name)
