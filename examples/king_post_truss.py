@@ -18,6 +18,8 @@ WTy = -4 * s
 WP1y = -0
 WP2y = -0
 
+tr = tb.Truss("Simple Truss")
+
 nRK  = tb.Node('RK',[0,dK,0])
 nRT1 = tb.Node('RT1',[-s/2-d0,0,0])
 nRT2 = tb.Node('RT2',[s/2+d0,0,0])
@@ -57,7 +59,7 @@ mP2 = tb.Member("Post 2 (P2)",nTP2)
 mP2.AddNode(nPB2)
 mP2.AddDistributedLineLoad([0,WP2y,0],nTP2.position,nPB2.position)
 
-a,b = tb.GenTable()
+a,b = tr.GenTable()
 #print(a)
 #print(b)
 #print("Matrix A shape is ",a.shape)
@@ -67,6 +69,6 @@ a,b = tb.GenTable()
 #print("Matrix rank is ",np.linalg.matrix_rank(a))
 s = np.linalg.lstsq(a,b,rcond=None)[0]
 
-tb.PrintResults(s)
+tr.PrintResults(s)
 np.matmul(a,s)-b
 

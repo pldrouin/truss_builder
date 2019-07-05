@@ -3,6 +3,8 @@ import truss_builder as tb
 
 #Simple truss with three members, down load applied on top node
 
+tr = tb.Truss("Simple Truss")
+
 n1 = tb.Node('n1',[0,1,0])
 n2 = tb.Node('n2',[-1,0,0],slider=[True,False,True],spinner=[True,True,True])
 n3 = tb.Node('n3',[1,0,0],slider=[True,False,True],spinner=[True,True,True])
@@ -17,7 +19,7 @@ n1.AddLoad([0,-10,0])
 #m1.AddPointLoad([0,2,0], [0,0,0])
 #m1.AddDistributedLineLoad([0,2,0],[-0.0001,0,0],[0.0001,0,0])
 #m1.momentSum
-a,b = tb.GenTable()
+a,b = tr.GenTable()
 #print(a)
 #print(b)
 #print("Matrix A shape is ",a.shape)
@@ -27,5 +29,5 @@ a,b = tb.GenTable()
 #print("Matrix rank is ",np.linalg.matrix_rank(a))
 s = np.linalg.lstsq(a,b,rcond=None)[0]
 
-tb.PrintResults(s)
+tr.PrintResults(s)
 np.matmul(a,s)-b
