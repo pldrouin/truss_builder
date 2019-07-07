@@ -9,12 +9,15 @@ s = 2 * 49.75
 H = 7 * 12
 dK = (d0 + s/2)/np.tan(theta)
 
+TCL = 18.13333333333333
+BCL = 4
+
 LR1x = 0
-LR1y = -18.13 * (s/2 + d0)
+LR1y = -TCL * (s/2 + d0)
 LR2x = 0
-LR2y = -18.13 * (s/2 + d0)
+LR2y = -TCL * (s/2 + d0)
 WKy = -0
-WTy = -4 * s
+WTy = -BCL * s
 WP1y = -0
 WP2y = -0
 

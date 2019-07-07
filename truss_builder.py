@@ -117,7 +117,7 @@ class Truss:
        del self.allNodes
 
    def CreateMember(self, name, refnode, hinged=[True,True,True]):
-       member = Member(name, refnode, hinged=[True,True,True])
+       member = Member(name, refnode, hinged)
        self.allMembers.append(member)
        return member
 
